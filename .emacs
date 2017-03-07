@@ -34,7 +34,24 @@
 (evil-set-initial-state 'term-mode 'emacs)
 (evil-set-initial-state 'dired-mode 'emacs)
 
+(defun set-modeline-color (foreground background)
+  (set-face-attribute  'mode-line
+		       nil
+		       :foreground foreground
+		       :background background
+		       :box '(:line-width 1 :style released-button)))
+
+(defun set-modeline-blue-cyan () (set-modeline-color "blue" "cyan"))
+(defun set-modeline-green-blue() (set-modeline-color "green" "blue"))
+(defun set-modeline-magenta-blue () (set-modeline-color "magenta" "blue"))
+(defun set-modeline-red-blue() (set-modeline-color "red" "blue"))
+
 ;; Hooks
+
+(add-hook 'evil-normal-state-entry-hook 'set-modeline-blue-cyan)
+(add-hook 'evil-insert-state-entry-hook 'set-modeline-green-blue)
+(add-hook 'evil-visual-state-entry-hook 'set-modeline-red-blue)
+(add-hook 'evil-emacs-state-entry-hook 'set-modeline-magenta-blue)
 
 (add-hook 'term-mode-hook
 	  (lambda () (linum-mode 0)))
